@@ -6,7 +6,7 @@ metadata:
     app: nginx
   namespace: default
 spec:
-  replicas: 1  
+  replicas: 1
   selector:
     matchLabels:
       app: nginx
@@ -17,9 +17,9 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx:stable-alpine3.17-slim  
+        image: nginx:stable-alpine3.17-slim
         ports:
-        - containerPort: 80  
+        - containerPort: 80
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Rollout
@@ -30,7 +30,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: nginx  
+      app: nginx
   strategy:
     blueGreen:
       activeService: nginx-service
@@ -45,18 +45,18 @@ spec:
       - name: nginx
         image: nginx:latest
         ports:
-        - containerPort: 80  
+        - containerPort: 80
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: nginx-service
   namespace: default
-spec:  
+spec:
   ports:
   - protocol: TCP
-    port: 80 
-    targetPort: 80  
+    port: 80
+    targetPort: 80
   selector:
     app: nginx
 ---
@@ -65,11 +65,10 @@ kind: Service
 metadata:
   name: nginx-preview-service
   namespace: default
-spec:  
+spec:
   ports:
   - protocol: TCP
-    port: 80 
-    targetPort: 80  
+    port: 80
+    targetPort: 80
   selector:
     app: nginx
-      
